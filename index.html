@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b14">
+<title>KallTopUp — Top Up Game</title>
+
+<style>
+:root {
+  --bg: #080b14;
+  --card: #111827;
+  --blue: #168cff;
+  --cyan: #00e5ff;
+  --white: #f5f8ff;
+  --muted: #94a3b8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  line-height: 1.6;
+}
+
+header {
+  padding: 18px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #1e293b;
+  background: #080b14;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--cyan);
+}
+
+.badge {
+  font-size: 11px;
+  padding: 6px 10px;
+  border: 1px solid #164e80;
+  border-radius: 20px;
+  color: var(--cyan);
+}
+
+.hero {
+  padding: 65px 6% 55px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at top, #103765 0%, transparent 65%);
+}
+
+.tag {
+  color: var(--cyan);
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 8vw, 58px);
+  line-height: 1.1;
+  margin: 18px 0;
+  font-weight: 900;
+}
+
+.hero h1 span {
+  color: var(--cyan);
+  text-shadow: 0 0 25px #008cff80;
+}
+
+.hero p {
+  color: var(--muted);
+  max-width: 420px;
+  margin: 0 auto 25px;
+  font-size: 14px;
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(100deg, #0878ff, #00d9ff);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 13px 22px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 0 22px #008cff35;
+}
+
+section {
+  padding: 35px 6%;
+  max-width: 900px;
+  margin: auto;
+}
+
+.section-title {
+  font-size: 23px;
+  margin-bottom: 6px;
+}
+
+.section-desc {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 22px;
+}
+
+.game-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(120deg, #142c49, #111827);
+  border: 1px solid #24517a;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.game-icon {
+  width: 65px;
+  height: 65px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0878ff, #00e5ff);
+  font-size: 31px;
+}
+
+.game-card h3 {
+  font-size: 17px;
+}
+
+.game-card p {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.label {
+  font-size: 13px;
+  color: var(--cyan);
+  font-weight: bold;
+  margin: 25px 0 12px;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.product {
+  background: var(--card);
+  border: 1px solid #263449;
+  padding: 17px 13px;
+  border-radius: 12px;
+  text-align: left;
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.product:hover {
+  border-color: var(--cyan);
+}
+
+.product.selected {
+  border: 1px solid var(--cyan);
+  background: #102a40;
+  box-shadow: 0 0 15px #00d9ff20;
+}
+
+.product strong {
+  display: block;
+  font-size: 16px;
+}
+
+.product small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.price {
+  display: block;
+  margin-top: 9px;
+  color: var(--cyan);
+  font-weight: bold;
+}
+
+form {
+  background: var(--card);
+  border: 1px solid #263449;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+form label {
+  display: block;
+  font-size: 13px;
+  margin: 14px 0 6px;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  border-radius: 9px;
+  border: 1px solid #334155;
+  background: #080b14;
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: var(--cyan);
+}
+
+.summary {
+  margin: 20px 0;
+  padding: 15px;
+  background: #080b14;
+  border-radius: 10px;
+  border: 1px solid #263449;
+}
+
+.summary p {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.summary strong {
+  color: var(--cyan);
+  font-size: 20px;
+}
+
+.submit {
+  width: 100%;
+  font-size: 15px;
+}
+
+.note {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 13px;
+}
+
+footer {
+  margin-top: 35px;
+  padding: 30px 6%;
+  text-align: center;
+  border-top: 1px solid #1e293b;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+footer strong {
+  color: var(--cyan);
+}
+
+@media (min-width: 600px) {
+  .products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">KALL<span>TOPUP.</span></div>
+  <div class="badge">● GAME STORE</div>
+</header>
+
+<div class="hero">
+  <div class="tag">LEVEL UP YOUR GAME</div>
+  <h1>TOP UP <span>MUDAH.</span><br>MAIN LEBIH SERU.</h1>
+  <p>
+    Top up game favoritmu dengan mudah.
+    Pilih produk, masukkan ID, lalu pesan melalui WhatsApp.
+  </p>
+  <a href="#produk" class="btn">⚡ TOP UP SEKARANG</a>
+</div>
+
+<section id="produk">
+  <h2 class="section-title">Pilih Game</h2>
+  <p class="section-desc">Mulai dengan game favoritmu.</p>
+
+  <div class="game-card">
+    <div class="game-icon">🎮</div>
+    <div>
+      <h3>Mobile Legends: Bang Bang</h3>
+      <p>Diamond Mobile Legends</p>
+      <p>Produk pilihan KallTopUp</p>
+    </div>
+  </div>
+
+  <div class="label">PILIH NOMINAL DIAMOND</div>
+
+  <div class="products" id="products"></div>
+</section>
+
+<section id="pesan">
+  <h2 class="section-title">Detail Pesanan</h2>
+  <p class="section-desc">
+    Isi data dengan benar sebelum memesan.
+  </p>
+
+  <form id="orderForm">
+    <label for="userId">User ID Mobile Legends</label>
+    <input id="userId" inputmode="numeric"
+      placeholder="Contoh: 123456789" required>
+
+    <label for="serverId">Zone ID / Server ID</label>
+    <input id="serverId" inputmode="numeric"
+      placeholder="Contoh: 1234" required>
+
+    <label for="nickname">Nickname (opsional)</label>
+    <input id="nickname" maxlength="40"
+      placeholder="Nama akun game">
+
+    <label for="payment">Metode pembayaran yang diinginkan</label>
+    <select id="payment" required>
+      <option value="">Pilih metode pembayaran</option>
+      <option>DANA</option>
+      <option>GoPay</option>
+      <option>OVO</option>
+      <option>Transfer Bank</option>
+      <option>Konfirmasi ke Admin</option>
+    </select>
+
+    <div class="summary">
+      <p>Produk dipilih</p>
+      <b id="selectedName">Belum memilih produk</b>
+      <p style="margin-top:12px">Total harga</p>
+      <strong id="total">Rp0</strong>
+    </div>
+
+    <button class="btn submit" type="submit">
+      PESAN VIA WHATSAPP ↗
+    </button>
+
+    <p class="note">
+      Pesanan akan dikirim ke admin untuk konfirmasi.
+      Pembayaran dan pengiriman diamond belum otomatis.
+    </p>
+  </form>
+</section>
+
+<footer>
+  <div class="logo">KALL<span>TOPUP.</span></div>
+  <p style="margin-top:10px">
+    Top up game dengan mudah.
+  </p>
+  <p style="margin-top:15px">
+    © 2026 KallTopUp. All rights reserved.
+  </p>
+  <p style="margin-top:8px">
+    Bukan situs resmi Moonton.
+  </p>
+</footer>
+
+<script>
+// GANTI dengan nomor WhatsApp admin.
+// Gunakan kode negara 62, tanpa tanda + atau spasi.
+// Contoh format: 6281234567890
+const WHATSAPP_ADMIN = "GANTI_DENGAN_NOMOR_WA";
+
+// Ubah harga di sini sesuai harga jualmu.
+const products = [
+  { diamonds: "5 Diamond", price: 2000 },
+  { diamonds: "12 Diamond", price: 4000 },
+  { diamonds: "28 Diamond", price: 8000 },
+  { diamonds: "59 Diamond", price: 15000 },
+  { diamonds: "85 Diamond", price: 22000 },
+  { diamonds: "170 Diamond", price: 43000 },
+  { diamonds: "296 Diamond", price: 73000 },
+  { diamonds: "568 Diamond", price: 140000 },
+  { diamonds: "875 Diamond", price: 215000 }
+];
+
+let selected = null;
+
+const money = amount =>
+  "Rp" + amount.toLocaleString("id-ID");
+
+const productArea = document.getElementById("products");
+
+products.forEach((product, index) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "product";
+  button.innerHTML = `
+    <strong>💎 ${product.diamonds}</strong>
+    <small>Mobile Legends</small>
+    <span class="price">${money(product.price)}</span>
+  `;
+
+  button.addEventListener("click", () => {
+    selected = product;
+
+    document.querySelectorAll(".product").forEach(el =>
+      el.classList.remove("selected")
+    );
+
+    button.classList.add("selected");
+
+    document.getElementById("selectedName").textContent =
+      product.diamonds;
+
+    document.getElementById("total").textContent =
+      money(product.price);
+  });
+
+  productArea.appendChild(button);
+});
+
+document.getElementById("orderForm").addEventListener(
+  "submit", event => {
+    event.preventDefault();
+
+    if (!selected) {
+      alert("Pilih nominal diamond terlebih dahulu!");
+      return;
+    }
+
+    if (WHATSAPP_ADMIN === "GANTI_DENGAN_NOMOR_WA") {
+      alert("Admin harus mengatur nomor WhatsApp terlebih dahulu.");
+      return;
+    }
+
+    const userId = document.getElementById("userId").value.trim();
+    const serverId = document.getElementById("serverId").value.trim();
+    const nickname = document.getElementById("nickname").value.trim();
+    const payment = document.getElementById("payment").value;
+
+    if (!/^\d+$/.test(userId) || !/^\d+$/.test(serverId)) {
+      alert("User ID dan Zone ID harus berupa angka.");
+      return;
+    }
+
+    const message = [
+      "*PESANAN KALLTOPUP*",
+      "",
+      "Game: Mobile Legends",
+      "Produk: " + selected.diamonds,
+      "Harga: " + money(selected.price),
+      "User ID: " + userId,
+      "Zone ID: " + serverId,
+      "Nickname: " + (nickname || "-"),
+      "Metode pembayaran: " + payment,
+      "",
+      "Mohon konfirmasi ketersediaan produk dan pembayaran."
+    ].join("\n");
+
+    const url = "https://wa.me/" +
+      WHATSAPP_ADMIN + "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank");
+  }
+);
+</script>
+
+</body>
+  </html>
